@@ -1,49 +1,51 @@
 ## Features
 
-Adds a few snippets for programming in GMod Lua.
+Adds a few snippets and commands for programming in GMod Lua.
 
+
+# Table Utility Snippets
 `namespace`
-```markdown
-Create object containers with this.
-Generates a local object that is returned at the end of the file for use with `include()`.
-```
- - `{namespace}.As(str)`
-     - `include('module.lua').As('LibraryName')`
-        - Creates a global copy of the imported library w/ name = (str)
-
-![Namespace Gif](https://i.imgur.com/SnGrBx2.gif)
-
-----------
-
+    - Emulates a namespace and returns it for use in creating library includes.
 `namespace nested`
-```markdown
-Generates a object that is placed inside a namespace object.
-```
- - `{parent}.{namespace}.As(str)`
-     - `include('{parent}.lua').{namespace}.As(str)`
-        - Creates a global copy of the imported sub-library w/ name = (str)
-
-![Namespace Nested Gif](https://i.imgur.com/fbxD8dT.gif)
-
-----------
-
+    - Emulates a namespace table within another namespace. No returning.
 `extends namespace`
-```markdown
-Create object container that is derived from another namespace(object).
-Returns it at the end of the file for `include()`
-```
+    - Includes or references another table and then returns it for extending libraries.
+`class`
+    - Emulates a class using metatables. Should use this within a namespace.
+`panel`
+    - Creates a panel object with some default functionality and registers it to vgui library.
+`panel inline`
+    - Creates a panel with vgui.create and sets some default variables
+`ent client`
+    - Utility for setting up an entity cl_init.lua file
+`ent server`
+    - Utility for setting up an entity init.lua file
+`ent shared`
+    - Utility for setting up an entity shared.lua file
 
-![Extends Namespace Gif](https://i.imgur.com/o5Ojdna.gif)
+# Variable Utility Snippets
+`delegate `
+    - Simple local function for anchoring.
+`class method`
+    - Creates a function on a class object.
+`static class method`
+    - Creates a static function on a class object, **virtually** no difference between this one and `class method` but it doesn't have a self option
+`ENT method`
+    - Creates a function on the cl_init.lua file of an entity
+`panel method`
+    - Creates a function on the object created with `panel` !not `panel inline`!
+`static method`
+    - Creates a global function
+`class field`
+    - Creates a nicely formatted & anchored variable within the table of a `class` object(Where it puts the cursor at the end)
+`let`
+    - Creates a local variable with anchoring(Shows up in File Anchors from Comment Anchors)
+`class table field`
+    - Same as clsas field but for table variables within the class table
 
-----------
-
-`delegate`
-```markdown
-Simulates a local function but with Anchoring.
-```
-
-![Delegate Gif](https://i.imgur.com/Gu8VIJE.gif)
-
+# Commands
+`Add Region Identifiers`
+    - Will add identifiers at the start and end of your selection for organizing code in the Comment Anchors
 
 
 ## Requirements

@@ -208,12 +208,11 @@
         "prefix": "panel inline",
         "body": [
             "-- {-} ${2:ParentPanel}.${1:PanelName}",
-            "self.${1:PanelName} = vgui.Create('${3:DButton}', self)",
+            "self.${1:PanelName} = vgui.Create('${3:Button}', self)",
             "self.${1:PanelName}:SetPos(${4:0,0})",
             "self.${1:PanelName}:SetSize(${5:0,0})",
             "self.${1:PanelName}:SetTitle('${6:Title}')",
             "self.${1:PanelName}:SetVisible(${7|true,false|})",
-            "self.${1:PanelName}:SetDraggable(${8|false,true|})",
             "self.${1:PanelName}:Show()",
             "$0",
             "self.${1:PanelName}.PaintOver = function(self)-- {+} $2.$1:PaintOver() [PaintOver $2.$1]",

@@ -1,14 +1,17 @@
 {
 	"name": "luamod2",
-	"displayName": "luamod2",
+	"displayName": "GLuaMod",
+	"icon": "media/icon.png",
 	"description": "Provide snippets, commands & views for lua/GLua",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"author": {"name": "NicholaScott"},
 	"publisher": "NicholaScott",
+	"repository": {"type":"git", "url":"https://github.com/NicholasScott1337/GLuaMod.git"},
 	"engines": {
 		"vscode": "^1.45.0"
 	},
 	"categories": [
+		"Snippets",
 		"Other"
 	],
 	"activationEvents": [

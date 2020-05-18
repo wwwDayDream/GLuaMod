@@ -1,6 +1,9 @@
 # Change Log
 
 ## [Unreleased]
+- **v(0.4.2)**
+    - Minor bug fixes to inline panel and panel.
+    - Updated ReadMe.md
 - **v(0.4.1)**
     - Minor improvement to inline panel
 - **v(0.4.0)**
