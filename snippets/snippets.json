@@ -1,0 +1,284 @@
+{
+    "Lua Namespace": {
+        "prefix": "namespace",
+        "body": [
+            "-- {^} $1",
+            "local ${1:NameSpace} = {-- {@} static fields: {}\n\t\n}-- !{@} ",
+            "${1:NameSpace}.As = function(str)-- {+} <$1>$1.As(str) [Creates a global copy named (str)]",
+            "\t_G[str] = ${1:NameSpace}",
+            "end-- !{+} ",
+            "$0",
+            "return $1",
+            "-- !{^} $1"
+        ],
+        "description": "A simulation of a namespace for including."
+    },
+    "Lua Namespace(nested)": {
+        "prefix": "namespace nested",
+        "body": [
+            "-- {^} ${2:ParentNamespace}.${1:NameSpace}",
+            "${2:ParentNamespace}.${1:NameSpace} = {-- {@} static fields: {}\n\t\n}-- !{@} ",
+            "${2:ParentNamespace}.${1:NameSpace}.As = function(str)-- {+} <$1>$1.As(str) [Creates a global copy named (str)]",
+            "\t_G[str] = ${2:ParentNamespace}.${1:NameSpace}",
+            "end-- !{+} ",
+            "$0",
+            "-- !{^} ${2:ParentNamespace}.${1:NameSpace}"
+        ],
+        "description": "A simulation of a namespace(nested)."
+    },
+    "Lua Namespace(extends)": {
+        "prefix": "extends namespace",
+        "body": [
+            "local ${1:NameSpace} = ${2:include('${3:library}.lua')} --{^} extends $1<$2>",
+            "$0",
+            "return $1-- !{^}"
+        ],
+        "description": "A simulation of a namespace(nested)."
+    },
+    "Lua Delegate": {
+        "prefix": "delegate",
+        "body": [
+            "local function ${1:Name}(${2:args})-- {+} local <$3>$1($2) [${5:Description}${6:($2)}${7:($3)}]",
+            "\tlocal $3 = $4",
+            "\t$8",
+            "\treturn ${3:ReturnVars}",
+            "end-- !{+} ",
+            ""
+        ],
+        "description": "A local function imaged as a delegate."
+    },
+    "Lua Method(entity)": {
+        "prefix": "ENT method",
+        "body": [
+            "${1:ENT}.${2:Name} = function(self${9:, ${3}})-- {+} <$4>$1:$2($3) [${6:Description}${7:($3)}${8:($4)}]",
+            "\tlocal $4 = $5",
+            "\t$10",
+            "\treturn ${4:Returns}",
+            "end-- !{+} \n"
+        ],
+        "description": "A local function imaged as a delegate."
+    },
+    "Lua Method(panel)": {
+        "prefix": "panel method",
+        "body": [
+            "${1:PANEL}.${2:Name} = function(self${9:, ${3}})-- {+} <$4>$1:$2($3) [${6:Description}${7:($3)}${8:($4)}]",
+            "\tlocal $4 = $5",
+            "\t$10",
+            "\treturn ${4:Returns}",
+            "end-- !{+} \n"
+        ],
+        "description": "A local function imaged as a delegate."
+    },
+    "Lua Method(class)": {
+        "prefix": "class method",
+        "body": [
+            "${1:NameSpace}.${2:MyClass}.${3:Name} = function(self${10:, ${4}})-- {+} <$5>$1.$2:$3($4) [${7:Description}${8:($4)}${9:($5)}]",
+            "\tlocal $5 = $6",
+            "\t$11",
+            "\treturn ${5:Returns}",
+            "end-- !{+} \n"
+        ],
+        "description": "A class function imaged as a method."
+    },
+    "Lua Method(static)": {
+        "prefix": "static method",
+        "body": [
+            "function ${2:NameSpace}.${3:Name}(${4:args})-- {*} <$5>$2.$3($4) [${7:Description}${8:($4)}${9:($5)}]",
+            "\tlocal $5 = $6",
+            "\t$10",
+            "\treturn ${5:Returns}",
+            "end-- !{*} \n"
+        ],
+        "description": "A global function imaged as a static method."
+    },
+    "Lua Method(static class)": {
+        "prefix": "class static method",
+        "body": [
+            "function ${1:NameSpace}.${2:MyClass}.${3:Name}(${4:args})-- {*} <$5>$1.$2.$3($4) [${7:Description}${8:($4)}${9:($5)}]",
+            "\tlocal $5 = $6",
+            "\t$10",
+            "\treturn ${5:Returns}",
+            "end-- !{*} \n"
+        ],
+        "description": "A global function imaged as a static method."
+    },
+    "Lua Field(class)": {
+        "prefix": "class field",
+        "body": [
+            "${5|\\,, |}${1:Name}${2: = ${3:Value}}-- {__} <${4:type}>$1$2\n"
+        ],
+        "description": "A variable."
+    },
+    "Lua Field(local)": {
+        "prefix": "let",
+        "body": [
+            "local ${1:Name}${2: = ${3:Value}}--{=_=} local <${4:type}>$1${2}\n"
+        ],
+        "description": "A local variable."
+    },
+    "Lua Field(class table)": {
+        "prefix": "class table field",
+        "body": [
+            "${3|\\,, |}${1:Name} = {-- {__T} <${2:type}>$1:{}\n\t\n}-- !{__T} $1\n"
+        ],
+        "description": "A local variable."
+    },
+    "Lua Class": {
+        "prefix": "class",
+        "body": [
+            "-- {()} ${3:NameSpace}.${2:MyClass}",
+            "$3.$2 = {--{@} fields:{}\n\t$0\n}--!{@}",
+            "$3.$2.__index = ${6:$3.$2} --inheritence: default for none",
+            "${4:$3.$2.__unm = function(self) \n\treturn self \nend \n$3.$2.__add = function(left, right) \n\treturn left \nend \n$3.$2.__sub = function(left, right) \n\treturn left \nend \n$3.$2.__mul = function(left, right) \n\treturn left \nend \n$3.$2.__div = function(left, right) \n\treturn left \nend \n$3.$2.__idiv = function(left, right) \n\treturn left \nend \n$3.$2.__mod = function(left, right) \n\treturn left \nend \n$3.$2.__pow = function(left, right) \n\treturn left \nend \n$3.$2.__concat = function(left, right) \n\treturn left \nend \n$3.$2.__band = function(self, other) \n\treturn self \nend \n$3.$2.__bor = function(self, other) \n\treturn self \nend \n$3.$2.__bxor = function(self, other) \n\treturn self \nend \n$3.$2.__bnot = function(self, other) \n\treturn self \nend \n$3.$2.__shl = function(self, other) \n\treturn self \nend \n$3.$2.__shr = function(self, other) \n\treturn self \nend \n$3.$2.__len = function(self) \n\treturn -1 \nend}",
+            "$3.$2.__tostring = function(self) return 'Not Implemented!' end",
+            "$3.$2.__call = function(${5:CallArgs})-- {*} <$2>$3.$2($5) [Create a new $2]",
+            "\tlocal new = {}",
+            "\tsetmetatable(new, $3.$2)",
+            "\tnew:Init($5)",
+            "\treturn new",
+            "end-- !{*} ",
+            "$3.$2.Init = function(self, $5)",
+            "end",
+            "-- !{()} ",
+            ""
+        ],
+        "description": "A simulation of a class in lua."
+    },
+    "GLua VGUI": {
+        "prefix": "panel",
+        "body": [
+            "-- {-} ${2:NameSpace}.${1:PanelName}",
+            "${2:NameSpace}.${1:PanelName} = {--{@} fields: {}",
+            "\t key_OpenToggle = ${6:KEY_RALT}-- {__} <KEY>key_OpenToggle = $6",
+            "\t,key_OpenHold = ${7:KEY_LALT}-- {__} <KEY>key_OpenHold = $7",
+            "\t,fKeyDownTime = 0}-- {__} <float>fKeyDownTime = 0",
+            "\t,fKeyUpTime = 0}-- {__} <float>fKeyUpTime = 0",
+            "\t,fToggledTime = 0}-- {__} <float>fToggledTime = 0",
+            "\t,bOpen = false-- {__} <bool>bOpen = false",
+            "\t",
+            "}--!{@} ",
+            "${2:NameSpace}.${1:PanelName}.Init = function(self)-- {+} $2.$1:Init() [Initialize $1]",
+            "\tself:SetPaintedManually(${3|true,false|})",
+            "\tself:SetMouseInputEnabled(${4|true,false|})",
+            "\tself:SetKeyboardInputEnabled(${5|true,false|})",
+            "\tself:SetSize(ScrW(),ScrH())",
+            "\tself:SetPos(0,0)",
+            "\tself:Show()",
+            "\t",
+            "end-- !{+} ",
+            "${2:NameSpace}.${1:PanelName}.Paint = function(self, w, h)-- {+} $2.$1:Paint() [Paint $1]",
+            "\tif (self.bOpen) then",
+            "\t\t--Draw code in here",
+            "\tend",
+            "\t",
+            "end-- !{+} ",
+            "${2:NameSpace}.${1:PanelName}.Think = function(self)-- {+} $2.$1:Think() [Think for $1]",
+            "\t",
+            "\tif (input.WasKeyPressed(self.key_OpenToggle)) then",
+            "\t\tself.fToggledTime = CurTime()",
+            "\t\tif (self.bOpen) then",
+            "\t\t\tself.bOpen = false",
+            "\t\t\tself:SetMouseInputEnabled(false)",
+            "\t\t\tself:SetKeyboardInputEnabled(false)",
+            "\t\telse",
+            "\t\t\tself.bOpen = true",
+            "\t\t\tself:SetMouseInputEnabled(true)",
+            "\t\t\tself:SetKeyboardInputEnabled(true)",
+            "\t\tend",
+            "\telseif (input.IsKeyDown(self.key_OpenHold) and self.bOpen == false) then",
+            "\t\tself.fKeyDownTime = CurTime()",
+            "\t\tself.bOpen = true",
+            "\t\tself:SetMouseInputEnabled(true)",
+            "\t\tself:SetKeyboardInputEnabled(true)",
+            "\telseif (!input.IsKeyDown(self.key_OpenHold) and self.bOpen == true) then",
+            "\t\tself.fKeyUpTime = CurTime()",
+            "\t\tself.bOpen = false",
+            "\t\tself:SetMouseInputEnabled(false)",
+            "\t\tself:SetKeyboardInputEnabled(false)",
+            "\tend",
+            "end-- !{+} ",
+            "$0",
+            "vgui.Register('${2:NameSpace}.${1:PanelName}', ${2:NameSpace}.${1:PanelName}, '${4:Frame}')",
+            "-- !{-} ",
+            ""
+        ],
+        "description": "A snippet for creating vgui panels."
+    },
+    "GLua VGUI Inline": {
+        "prefix": "panel inline",
+        "body": [
+            "-- {-} ${2:ParentPanel}.${1:PanelName}",
+            "self.${1:PanelName} = vgui.Create('${3:DButton}', self)",
+            "self.${1:PanelName}:SetPos(${4:0,0})",
+            "self.${1:PanelName}:SetSize(${5:0,0})",
+            "self.${1:PanelName}:SetTitle('${6:Title}')",
+            "self.${1:PanelName}:SetVisible(${7|true,false|})",
+            "self.${1:PanelName}:SetDraggable(${8|false,true|})",
+            "self.${1:PanelName}:Show()",
+            "$0",
+            "self.${1:PanelName}.PaintOver = function(self)-- {+} $2.$1:PaintOver() [PaintOver $2.$1]",
+            "\t",
+            "end-- !{+} ",
+            "self.${1:PanelName}.Think = function(self)-- {+} $2.$1:Think() [Think for $2.$1]",
+            "\t",
+            "end-- !{+} ",
+            "-- !{-} ",
+            ""
+        ],
+        "description": "A snippet for creating vgui panels."
+    },
+    "GLua ENT(client)": {
+        "prefix": "ENT client",
+        "body": [
+            "include( 'shared.lua' )",
+            "local ${1:EntCast} = ENT-- {@} (${1:EntCast}) <= ENT<Entity>:CLIENT",
+            "${1:EntCast}.Draw = function(self)-- {+} <nul>${1:EntCast}:Draw() [Draws our entity]",
+            "\tlocal nul = nil",
+            "\tself:DrawModel()",
+            "\treturn nul",
+            "end-- !{+} ",
+            "$0",
+            "-- !{@} "
+        ],
+        "description": "A snippet for creating an entity for client."
+    },
+    "GLua ENT(shared)": {
+        "prefix": "ENT shared",
+        "body": [
+            "local ${1:EntCast} = ENT-- {@} (${1:EntCast}) <= ENT<Entity>:CLIENT",
+            "-- {@} fields: {}",
+            "$1.Type = '${2:anim}' --{__} <str>$1.Type = '$2'",
+            "$1.Base = '${3:base_gmodentity}' --{__} <str>$1.Base = '$3'",
+            "",
+            "$1.PrintName = '${4:PrintName}' --{__} <str>$1.PrintName = '$4'",
+            "$1.Author = '${5:Auther}' --{__} <str>$1.Author = '$5'",
+            "$1.Purpose = '$6' --{__} <str>$1.Purpose = '$6'",
+            "$1.Instructions = '$7' --{__} <str>$1.Instructions = '$7'",
+            "",
+            "$1.Spawnable = ${8|false,true|} --{__} <bool>$1.Spawnable = $8",
+            "$1.AdminSpawnable = ${9|false,true|} --{__} <bool>$1.AdminSpawnable = $9",
+            "-- !{@} ",
+            "$0",
+            "-- !{@} "
+        ],
+        "description": "A snippet for creating an entity for client."
+    },
+    "GLua ENT(server)": {
+        "prefix": "ENT server",
+        "body": [
+            "AddCSLuaFile( 'cl_init.lua' )",
+            "AddCSLuaFile( 'shared.lua' )",
+            "include( 'shared.lua' )",
+            "local ${1:EntCast} = ENT-- {@} (${1:EntCast}) <= ENT<Entity>:CLIENT",
+            "${1:EntCast}.Initialize = function(self)-- {+} <nul>${1:EntCast}:Initialize() [Initializes our entity]",
+            "\tself:SetModel( '${2:models/props_c17/concrete_barrier001a.mdl}' )",
+            "\tself:SetMoveType( ${3:MOVETYPE_NONE} )",
+            "\tself:SetSolid( ${4:SOLID_VPHYSICS} )",
+            "\tself:SetUseType( ${5:SIMPLE_USE} )",
+            "end-- !{+} ",
+            "$0",
+            "-- !{@} "
+        ],
+        "description": "A snippet for creating an entity for client."
+    },
+}
