@@ -6,42 +6,60 @@ Adds a few snippets and commands for programming in GMod Lua.
 # Table Utility Snippets
 `namespace`
     - Emulates a namespace and returns it for use in creating library includes.
+
 `namespace nested`
     - Emulates a namespace table within another namespace. No returning.
+
 `extends namespace`
     - Includes or references another table and then returns it for extending libraries.
+
 `class`
     - Emulates a class using metatables. Should use this within a namespace.
+
 `panel`
     - Creates a panel object with some default functionality and registers it to vgui library.
+
 `panel inline`
     - Creates a panel with vgui.create and sets some default variables
+
 `ent client`
     - Utility for setting up an entity cl_init.lua file
+
 `ent server`
     - Utility for setting up an entity init.lua file
+
 `ent shared`
     - Utility for setting up an entity shared.lua file
+
 
 # Variable Utility Snippets
 `delegate `
     - Simple local function for anchoring.
+
 `class method`
     - Creates a function on a class object.
+
 `static class method`
     - Creates a static function on a class object, **virtually** no difference between this one and `class method` but it doesn't have a self option
+
 `ENT method`
     - Creates a function on the cl_init.lua file of an entity
+
 `panel method`
     - Creates a function on the object created with `panel` !not `panel inline`!
+
 `static method`
     - Creates a global function
+
 `class field`
     - Creates a nicely formatted & anchored variable within the table of a `class` object(Where it puts the cursor at the end)
+
 `let`
     - Creates a local variable with anchoring(Shows up in File Anchors from Comment Anchors)
+
 `class table field`
     - Same as clsas field but for table variables within the class table
+    
 
 # Commands
 `Add Region Identifiers`
